@@ -1,0 +1,33 @@
+
+homepage:
+  path: /
+  controller: App\Controller\ProductController::index
+
+article_add:
+  path: /new
+  controller: App\Controller\ProductController::new
+
+article_show:
+  path: /show/{id}
+  controller: App\Controller\ProductController::show
+
+article_edit:
+  path: /edit/{id}
+  controller: App\Controller\ProductController::edit
+  requirements:
+    id: '\d+'
+
+article_remove:
+  path: /remove/{id}
+  controller: App\Controller\ProductController::remove
+  requirements:
+    id: '\d+'
+
+admin:
+  path: /admin
+  controller: App\Controller\ProductController::admin
+
+filter_str:
+  path: /filter_str
+  controller: App\Controller\ProductController::myFunction
+  

@@ -1,0 +1,10 @@
+<div class="container">
+{{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
+    {{ form_widget(form) }}
+
+
+
+    <button class="btn btn-dark">{{ button_label|default('Envoyer') }}</button>
+     <a class="btn btn-warning m-1" href="{{ path('product_index') }}">retour à la liste</a>
+{{ form_end(form) }}
+</div>

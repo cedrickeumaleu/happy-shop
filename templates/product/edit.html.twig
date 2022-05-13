@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ product.name }}</h1>
+
+     {% if product.image is not null %}
+        <img width="300" src="{{ asset('assets/uploads/' ~ product.image) }}">
+        {% endif %}
+    {{ include('product/_form.html.twig', {'button_label': 'Envoyer'}) }}
+</div>
+    {# <a href="{{ path('product_index') }}">back to list</a> #}
+    {# {{ include('includes/produit_form.html.twig',) }} #}
+    {# {% include"product/produit_form.html.twig" %} #}
+{% endblock %}

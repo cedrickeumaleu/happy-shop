@@ -1,0 +1,265 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+
+
+<div class="container-fluid">
+    <h1 class="mt-3 mb-4"></h1>
+       
+        <div class="row">
+ 
+            <div class="col-2">
+            <div>
+            <h5>Rechercher</h5>
+
+             <form class="search" method="POST" action="{{path('filter_str')}}">
+                <div class="input-group md-form form-sm form-2 pl-0">
+                <input class="form-control my-0 py-1 amber-border" name="filterStr" type="text" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <span class="input-group-text amber lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
+                        aria-hidden="true"></i></span>
+                </div>
+                </div>
+            </form>
+
+            </div>
+
+                <h5>Nos Categories</h5>
+                <div class="list-group">
+                    <a class="list-group-item dropdown-toggle" href="{{ path('product_index') }}">VOIR TOUT</a>
+                    
+                    {% for categorie in categories %}
+                    <a class="list-group-item " href="{{ path('filter',{'id':categorie.id}) }}" >
+                    {{ categorie.nom }}
+                    </a>
+             
+                        {% endfor %}
+
+               </div>
+            </div>
+           
+            <div class="col-10">
+                <div class="row">
+                
+                {% for product in products %}
+                
+                    <div class="card col-3">
+                        <img src="/assets/uploads/{{ product.image}}" alt="{{ product.image }}" class="card-img-top">
+                        <div class="card-body"><hr>
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <div class="price">
+                            <span class="h5 mt-auto">{{ product.price }} €</span>
+                            </div><hr>
+                                {% if app.user %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                            
+                                    <a class="btn btn-warning" style="float:right" href="{{ path('product_new') }}">Create new</a>
+                                    <a href="{{ path('product_edit', {id: product.id}) }}" class="btn btn-warning">
+
+                                    Editer
+                                    </a> 
+                                      <a href="{{ path('product_delete', {'id': product.id}) }}" class="btn btn-danger">
+
+                                    Suprimer
+                                    </a>   
+
+                                    {% endif %}
+                                {% endif %}
+                                <a href="{{ path('product_show', {id: product.id}) }}" class="btn btn-dark">
+                                    details
+                                </a>    
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    
+            <!-- Remove the container if you want to extend the Footer to full width. -->
+            <div class="container-fluid my-5">
+            <!-- Footer -->
+            <footer
+                    class="text-center text-lg-start text-white"
+                    style="background-color: #45526e"
+                    >
+                   
+                <!-- Grid container -->
+                <div class="container p-4 pb-0">
+                <!-- Section: Links -->
+                <section class="">
+                    <!--Grid row-->
+                    <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <div class="d-flex">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">
+                            Happy shop
+                            </h6>
+                            <img src="/assets/uploads/logoevents1.png" alt="" width="130" height="80">
+                        </div>
+                     
+                        <p>
+                        c'est toujours un réel plaisir de vous accueillir chez nous.
+                        Nous restons à votre écoute n'exitez pas de nous contacter en cas de besoin.
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="w-100 clearfix d-md-none " />
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Produits</h6>
+                        <p>
+                        <a class="text-white">Vêtements</a>
+                        </p>
+                        <p>
+                        <a class="text-white">Chaussures</a>
+                        </p>
+                        <p>
+                        <a class="text-white">Accessoir</a>
+                        </p>
+                        <p>
+                        <a class="text-white">Autre</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="w-100 clearfix d-md-none" />
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">
+                        Les liens utiles
+                        </h6>
+                        <p>
+                        <a class="text-white">Votre conte</a>
+                        </p>
+                        <p>
+                        <a class="text-white">Devenir un membre</a>
+                        </p>
+                        <p>
+                        <a class="text-white">Les frais d'envoi</a>
+                        </p>
+                        <p>
+                        <a class="text-white">Aide</a>
+                        </p>
+                    </div>
+
+                    <!-- Grid column -->
+                    <hr class="w-100 clearfix d-md-none" />
+                
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                        <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                        <p><i class="fas fa-home mr-3"></i>Villeurbanne 69100</p>
+                        <p><i class="fas fa-envelope mr-3"></i>keumaleucedrick@gmail.com</p>
+                        <p><i class="fas fa-phone mr-3"></i> + 07 556 125 75</p>
+                        <p><i class="fas fa-print mr-3"></i> + 04 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                    </div>
+                    <!--Grid row-->
+                </section>
+                <!-- Section: Links -->
+
+                <hr class="my-3">
+
+                <!-- Section: Copyright -->
+                <section class="p-3 pt-0">
+                    <div class="row d-flex align-items-center">
+                    <!-- Grid column -->
+                    <div class="col-md-7 col-lg-8 text-center text-md-start">
+                        <!-- Copyright -->
+                        <div class="p-3">
+                        © 2022 Copyright:
+                        <a class="text-white" href="https://www.linkedin.com/in/cedrick keumaleu/"
+                            >keumaleucedrick@gmail.com</a
+                            >
+                        </div>
+                        <!-- Copyright -->
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                        <!-- Facebook -->
+                        <a class="text-white m-1" href="https://www.linkedin.com/in/cedrick keumaleu/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                        </svg>
+                        </a>
+
+                        <!-- Twitter -->
+                        <a class="text-white m-1" href="https://www.facebook.com/cedrick keumaleu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                        </a>
+                        
+
+                        <!-- Google -->
+                        <a class="text-white m-1" href="https://www.twitter.com/cedrick keumaleu">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                        <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                        </svg>
+                        </a>
+
+                        <!-- Instagram -->
+                       <a class="text-white m-1" href="https://github.com/cedrickeumaleu/symfonyapp/panier/happy-shop">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        </a>
+                    </div>
+                    <!-- Grid column -->
+                    </div>
+                </section>
+                <!-- Section: Copyright -->
+                </div>
+                <!-- Grid container -->
+                <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i class="fas fa-chevron-up"></i></a>
+            </footer>
+            <!-- Footer -->
+            </div>
+            <!-- End of .container -->
+    
+    </div>
+    </div>
+
+
+    {# <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.image }}</td>
+                <td>
+                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
+                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> #}
+{% endblock %}
